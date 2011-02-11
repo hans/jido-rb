@@ -1,8 +1,11 @@
-= jido
+= Jido
 
-Description goes here.
+Jido is a really fast, really simple dynamic verb conjugation library.
 
-== Contributing to jido
+    jido = Jido.new :lang => 'fr'
+    jido.conjugate 'être'
+
+== Contributing to Jido
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
@@ -16,4 +19,3 @@ Description goes here.
 
 Copyright (c) 2011 Hans Engel. See LICENSE.txt for
 further details.
-

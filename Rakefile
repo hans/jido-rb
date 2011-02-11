@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "jido"
   gem.homepage = "http://github.com/hans/jido"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Painless verb conjugation}
+  gem.description = %Q{Painless verb conjugation}
   gem.email = "engel@engel.uk.to"
   gem.authors = ["Hans Engel"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
