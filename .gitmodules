@@ -1,0 +1,3 @@
+[submodule "lib/jido/data"]
+	path = lib/jido/data
+	url = git@github.com:hans/jido-data.git
