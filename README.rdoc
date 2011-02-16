@@ -2,7 +2,7 @@
 
 Jido is a really fast, really simple dynamic verb conjugation library.
 
-    jido = Jido.new 'fr'
+    jido = Jido.load 'fr'
     jido.conjugate 'être'
 
 == Contributing to Jido
