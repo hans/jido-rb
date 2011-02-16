@@ -69,7 +69,6 @@ module Jido
       
       group = nil; group_search = nil
       forms.each do |form|
-        p form
         ret[form] = {}
         
         group_search = "group[@id='#{form}']"
@@ -85,7 +84,6 @@ module Jido
         pdgmgroup = nil; pdgmgroup_search = nil
         paradigm = nil; paradigm_search = nil
         paradigms.each do |paradigm|
-          p paradigm
           pdgmgroup_search = "group[@id='#{form}']/pdgmgroup[@id='#{paradigm[:person]}']"
           pdgmgroup = search_current_el pdgmgroup_search
           
