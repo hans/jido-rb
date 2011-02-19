@@ -21,6 +21,25 @@ module Jido
       
       @data = Nokogiri.XML data_file, nil, 'UTF-8'
       data_file.close
+
+      @options = options
+      @forms = check_for_list_option :forms
+      @forms_except = check_for_list_option :forms_except
+      @paradigms = check_for_list_option :paradigms
+      @paradigms_except = check_for_list_option :paradigms_except
+    end
+
+    # Interpret the provided option when a list is expected.
+    # Used to provide functionality like:
+    #     jido.conjugate 'be', :form => 'prs'
+    #     jido.conjugate 'be', :form => %w{prs pst prf}
+    def check_for_list_option option_name
+      return nil unless defined?(@options[option_name])
+
+      return [@options[option_name]] if @options[option_name].is_a?(String)
+      return @options[option_name] if @options[option_name].is_a?(Array)
+
+      raise "Invalid data type provided for option #{option_name}: a list was expected. Please provide a single string element or an array of strings."
     end
     
     # Get the possible verb form IDs for any conjugated verb.
@@ -69,6 +88,7 @@ module Jido
       
       group = nil; group_search = nil
       forms.each do |form|
+        next unless @forms_except[form].nil?
         ret[form] = {}
         
         group_search = "group[@id='#{form}']"
@@ -84,6 +104,8 @@ module Jido
         pdgmgroup = nil; pdgmgroup_search = nil
         paradigm = nil; paradigm_search = nil
         paradigms.each do |paradigm|
+          next unless @paradigms_except[paradigm[:person] + paradigm[:quant]].nil?
+
           pdgmgroup_search = "group[@id='#{form}']/pdgmgroup[@id='#{paradigm[:person]}']"
           pdgmgroup = search_current_el pdgmgroup_search
           
