@@ -3,16 +3,23 @@ require 'nokogiri'
 
 module Jido
   class Conjugator
+    
+    # The language used in this Conjugator instance.
+    # Verbs given to this instance are expected to be in this language.
+    # This instance will conjugate verbs according to rules of this language.
     attr_reader :lang
     
+    # Create a Jido::Conjugator instance.
+    # Load and parse the corresponding XML data file, and parse any provided options.
+    # 
     # Accepted options (keys of the `options` hash should be symbols, not strings):
-    # * `:forms`: Only return conjugations for the given verb forms / tenses.
+    # * <code>:forms</code>: Only return conjugations for the given verb forms / tenses.
     #     Jido::Conjugator.new 'fr', :forms => %w{prs futant}
-    # * `:paradigms`: Only return conjugations for the given paradigms.
+    # * <code>:paradigms</code>: Only return conjugations for the given paradigms.
     #     Jido::Conjugator.new 'fr', :paradigms => [{:person => '1', :quant => 'sg'}]
-    # * `:forms_except`: Return all conjugations except those for the given verb forms / tenses.
+    # * <code>:forms_except</code>: Return all conjugations except those for the given verb forms / tenses.
     #     Jido::Conjugator.new 'fr', :forms_except => 'prs'
-    # * `:paradigms_except`: Return all conjugations except those for the given paradigms.
+    # * <code>:paradigms_except</code>: Return all conjugations except those for the given paradigms.
     #     Jido::Conjugator.new 'fr', :paradigms_except => [{:person => '3', :quant => 'pl'}]
     def initialize lang, options = {}
       @lang = lang
@@ -32,6 +39,8 @@ module Jido
       self.options = options
     end
     
+    # Change the options for this Conjugator instance.
+    # See Conjugator#new for possible options.
     def options= options
       @options = options
       @forms = check_for_list_option :forms
@@ -88,6 +97,7 @@ module Jido
       @paradigms
     end
     
+    # Hmm.. what does this do.. ?
     def conjugate verb
       @current_el = @data.at_xpath "/verbs/verb[@word='#{verb}']"
       @current_el = get_fallback_for_verb(verb) if @current_el.nil?
@@ -205,6 +215,8 @@ module Jido
       nil
     end
     
+    # Find a fallback verbset whose regex matches the given verb.
+    # Used when an exact verb element cannot be matched with an input verb (that is, in most cases).
     def get_fallback_for_verb verb
       fallbacks.each do |fallback|
         if verb.match fallback[:regex]
@@ -216,6 +228,7 @@ module Jido
       false
     end
     
+    # Return a string describing the instance.
     def inspect
       "#<Conjugator @lang=\"#{@lang}\">"
     end
