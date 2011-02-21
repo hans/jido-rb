@@ -77,8 +77,12 @@ module Jido
     
     def forms= forms
       @options[:forms] = forms
-      @forms = check_for_list_option :forms, forms
+      @forms = check_for_list_option :forms
     end
+    
+    def forms_except= forms_except
+      @options[:forms_except] = forms_except
+      @forms_except = check_for_list_option :forms_except
     
     def fallbacks
       if @fallbacks.nil?
@@ -105,6 +109,11 @@ module Jido
     def paradigms= paradigms
       @options[:paradigms] = paradigms
       @paradigms = check_for_list_option :paradigms
+    end
+    
+    def paradigms_except= paradigms_except
+      @options[:paradigms_except] = paradigms_except
+      @paradigms_except = check_for_list_option :paradigms_except
     end
     
     # Hmm.. what does this do.. ?
