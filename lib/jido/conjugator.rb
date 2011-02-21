@@ -5,8 +5,15 @@ module Jido
   class Conjugator
     attr_reader :lang
     
-    # Accepted options:
-    #   
+    # Accepted options (keys of the `options` hash should be symbols, not strings):
+    # * `:forms`: Only return conjugations for the given verb forms / tenses.
+    #     Jido::Conjugator.new 'fr', :forms => %w{prs futant}
+    # * `:paradigms`: Only return conjugations for the given paradigms.
+    #     Jido::Conjugator.new 'fr', :paradigms => [{:person => '1', :quant => 'sg'}]
+    # * `:forms_except`: Return all conjugations except those for the given verb forms / tenses.
+    #     Jido::Conjugator.new 'fr', :forms_except => 'prs'
+    # * `:paradigms_except`: Return all conjugations except those for the given paradigms.
+    #     Jido::Conjugator.new 'fr', :paradigms_except => [{:person => '3', :quant => 'pl'}]
     def initialize lang, options = {}
       @lang = lang
       
