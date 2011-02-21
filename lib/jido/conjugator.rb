@@ -217,7 +217,7 @@ module Jido
     end
     
     def inspect
-      "<Conjugator @lang => '#{@lang}'>"
+      "#<Conjugator @lang=\"#{@lang}\">"
     end
   end
 end
