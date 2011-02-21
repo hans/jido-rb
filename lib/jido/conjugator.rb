@@ -205,6 +205,7 @@ module Jido
           unless mod.nil?
             case mod[:match]
             when 'first' then modded_verb.sub!(mod[:search], mod[:replace])
+            when 'last' then modded_verb.sub!(/(.*)#{mod[:search]}(.*)/, "\1#{mod[:replace]}\3")
             when 'all' then modded_verb.gsub!(mod[:search], mod[:replace])
             end
           end
