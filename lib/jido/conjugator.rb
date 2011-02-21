@@ -63,7 +63,7 @@ module Jido
     end
     
     # Get the possible verb form IDs for any conjugated verb.
-    #   Jido.load('fr').forms     # => ['PRS', 'PCOMP', 'IMP', ...]
+    #   Jido.load('fr').forms           # => ['PRS', 'PCOMP', 'IMP', ...]
     def forms
       if @forms.nil?
         @forms = []
@@ -75,16 +75,21 @@ module Jido
       @forms
     end
     
+    #   jido.forms = %w{prs pst imp}    # conjugate only for present, past, and imperfect tenses
+    #   jido.forms = 'futant'           # conjugate only for future anterior tense
+    #   jido.forms = jido.forms[0..4]   # conjugate for the first 5 forms stored in the conjugator
     def forms= forms
       @options[:forms] = forms
       @forms = check_for_list_option :forms
     end
     
+    #   jido.forms_except = 'prs'       # conjugate for all forms but the present tense
     def forms_except= forms_except
       @options[:forms_except] = forms_except
       @forms_except = check_for_list_option :forms_except
     end
     
+    # Get the fallbacks for this language, in case an exact match for a given verb is not found.
     def fallbacks
       if @fallbacks.nil?
         @fallbacks = []
@@ -96,6 +101,12 @@ module Jido
       @fallbacks
     end
     
+    # Get the possible paradigm IDs for any conjugated verb.
+    # Each paradigm is a hash, with two keys:
+    # * <code>:person</code>
+    # * <code>:quant</code>
+    # 
+    #   Jido.load('fr').paradigms       # => [{:person => '1', :quant => 'sg'}, {:person => '1', :quant => 'pl'}, ...]
     def paradigms
       if @paradigms.nil?
         @paradigms = []
@@ -107,11 +118,14 @@ module Jido
       @paradigms
     end
     
+    # See #paradigms for the expected structure of the parameter.
+    #   jido.paradigms = [{:person => '1', :quant => 'sg'}, {:person => '3', :quant => 'pl'}]   # conjugate for only 1SG and 3PL
     def paradigms= paradigms
       @options[:paradigms] = paradigms
       @paradigms = check_for_list_option :paradigms
     end
     
+    # See #paradigms for the expected structure of the parameter.
     def paradigms_except= paradigms_except
       @options[:paradigms_except] = paradigms_except
       @paradigms_except = check_for_list_option :paradigms_except
