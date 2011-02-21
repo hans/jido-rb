@@ -56,7 +56,7 @@ module Jido
     def check_for_list_option option_name
       return nil if @options[option_name].nil?
 
-      return [@options[option_name]] if @options[option_name].is_a?(String)
+      return [@options[option_name]] if @options[option_name].is_a?(String) or @options[option_name].is_a(Hash)
       return @options[option_name] if @options[option_name].is_a?(Array)
 
       raise "Invalid data type provided for option #{option_name}: a list was expected. Please provide a single string element or an array of strings."
