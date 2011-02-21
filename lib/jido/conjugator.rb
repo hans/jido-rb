@@ -2,6 +2,8 @@ require 'rubygems'
 require 'nokogiri'
 
 module Jido
+  
+  # This is it, folks.
   class Conjugator
     
     # The language used in this Conjugator instance.
@@ -217,14 +219,14 @@ module Jido
       ret
     end
     
-    # Find all parents of a given verb / verbset, and store them in @current_el_parents
+    # Find all parents of a given verb / verbset, and store them in <code>@current_el_parents</code>
     # (if a verb / verbset #1 inherits a verb / verbset #2, then #2 is the parent of #1)
     # 
-    # Structure note: verbs are "final" objects. Verbs cannot be inherited; they are always at the bottom of a hierarchy.
+    # Structure note: verbs are <em>final</em> objects. Verbs cannot be inherited; they are always at the bottom of a hierarchy.
     # Verbsets can inherit / be inherited by other verbsets, and verbs can inherit verbsets.
-    # In other words.. verb = final class, verb set = abstract class
+    # In other words.. <strong>verb = final class, verb set = abstract class</strong>.
     # 
-    # Yay recursion :)
+    # Yay, recursion :)
     def store_parents el
       return if el['inherit'].nil?
       
