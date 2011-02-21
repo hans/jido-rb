@@ -75,6 +75,10 @@ module Jido
       @forms
     end
     
+    def forms= forms
+      @forms = check_for_list_option :forms
+    end
+    
     def fallbacks
       if @fallbacks.nil?
         @fallbacks = []
@@ -95,6 +99,10 @@ module Jido
       end
       
       @paradigms
+    end
+    
+    def paradigms= paradigms
+      @paradigms = check_for_list_option :paradigms
     end
     
     # Hmm.. what does this do.. ?
