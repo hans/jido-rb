@@ -22,11 +22,15 @@ module Jido
       @data = Nokogiri.XML data_file, nil, 'UTF-8'
       data_file.close
 
+      self.options = options
+    end
+    
+    def options= options
       @options = options
       @forms = check_for_list_option :forms
-      @forms_except = check_for_list_option :forms_except
+      @forms_except = check_for_list_option(:forms_except) || [ ]
       @paradigms = check_for_list_option :paradigms
-      @paradigms_except = check_for_list_option :paradigms_except
+      @paradigms_except = check_for_list_option(:paradigms_except) || [ ]
     end
 
     # Interpret the provided option when a list is expected.
@@ -34,7 +38,7 @@ module Jido
     #     jido.conjugate 'be', :form => 'prs'
     #     jido.conjugate 'be', :form => %w{prs pst prf}
     def check_for_list_option option_name
-      return nil unless defined?(@options[option_name])
+      return nil if @options[option_name].nil?
 
       return [@options[option_name]] if @options[option_name].is_a?(String)
       return @options[option_name] if @options[option_name].is_a?(Array)
@@ -88,7 +92,7 @@ module Jido
       
       group = nil; group_search = nil
       forms.each do |form|
-        next unless @forms_except[form].nil?
+        next if @forms_except.include?(form)
         ret[form] = {}
         
         group_search = "group[@id='#{form}']"
@@ -104,7 +108,7 @@ module Jido
         pdgmgroup = nil; pdgmgroup_search = nil
         paradigm = nil; paradigm_search = nil
         paradigms.each do |paradigm|
-          next unless @paradigms_except[paradigm[:person] + paradigm[:quant]].nil?
+          next if @paradigms_except.include?(paradigm)
 
           pdgmgroup_search = "group[@id='#{form}']/pdgmgroup[@id='#{paradigm[:person]}']"
           pdgmgroup = search_current_el pdgmgroup_search
