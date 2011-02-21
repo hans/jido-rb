@@ -83,6 +83,7 @@ module Jido
     def forms_except= forms_except
       @options[:forms_except] = forms_except
       @forms_except = check_for_list_option :forms_except
+    end
     
     def fallbacks
       if @fallbacks.nil?
