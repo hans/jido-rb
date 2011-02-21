@@ -76,7 +76,8 @@ module Jido
     end
     
     def forms= forms
-      @forms = check_for_list_option :forms
+      @options[:forms] = forms
+      @forms = check_for_list_option :forms, forms
     end
     
     def fallbacks
@@ -102,6 +103,7 @@ module Jido
     end
     
     def paradigms= paradigms
+      @options[:paradigms] = paradigms
       @paradigms = check_for_list_option :paradigms
     end
     
